@@ -12,11 +12,6 @@ import { useState } from "react";
 import ".././css/Login.css";
 
 export default function Login() {
-  const [accessToken, setAccessToken] = useState("");
-  const [client, setClient] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [uid, setUid] = useState("");
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -50,10 +45,20 @@ export default function Login() {
       });
 
       //   grab data from login headers
-      setAccessToken(data.headers.get("access-token"));
-      setClient(data.headers.get("client"));
-      setExpiry(data.headers.get("expiry"));
-      setUid(data.headers.get("uid"));
+      const accessToken = data.headers.get("access-token");
+      const client = data.headers.get("client");
+      const expiry = data.headers.get("expiry");
+      const uid = data.headers.get("uid");
+
+      // store data in headers variable
+      const headers = {
+        "access-token": accessToken,
+        client: client,
+        expiry: expiry,
+        uid: uid,
+      };
+      // store headers variable in local storage
+      localStorage.setItem("headers", JSON.stringify(headers));
 
       const response = await data.json();
       if (response.errors) {
