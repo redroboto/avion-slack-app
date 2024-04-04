@@ -16,6 +16,31 @@ export default function SignUp() {
     password_confirmation: "",
   });
 
+  async function userReg(email, password, password_confirmation) {
+    try {
+      const data = await fetch("http://206.189.91.54/api/v1/auth/", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+          password_confirmation,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const response = await data.json();
+      console.log(response);
+      if (response.errors) {
+        throw response.errors.full_messages[0];
+      }
+    } catch (error) {
+      console.log("Error Occurred");
+      console.log(error);
+    }
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -28,6 +53,11 @@ export default function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    userReg(
+      formData["email"],
+      formData["password"],
+      formData["password_confirmation"]
+    );
   };
 
   return (
