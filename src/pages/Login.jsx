@@ -33,7 +33,6 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     userLogin(formData["email"], formData["password"]);
   };
 
@@ -50,15 +49,13 @@ export default function Login() {
         },
       });
 
-      console.log(data.headers);
-
+      //   grab data from login headers
       setAccessToken(data.headers.get("access-token"));
       setClient(data.headers.get("client"));
       setExpiry(data.headers.get("expiry"));
       setUid(data.headers.get("uid"));
 
       const response = await data.json();
-      console.log(response);
       if (response.errors) {
         throw response.errors.full_messages[0];
       }
@@ -73,7 +70,7 @@ export default function Login() {
       <div className="login-form-container">
         <p>The logo should probably go here</p>
         <h1>Sign in to your workspace</h1>
-        <FormControl>
+        <FormControl onSubmit={handleSubmit}>
           <Flex direction="column" align="center" justify="center" gap="1rem">
             <Input
               name="email"
@@ -82,6 +79,7 @@ export default function Login() {
               onChange={handleInputChange}
               placeholder="Enter your email address here"
               width="30vw"
+              required
             />
             <Input
               name="password"
@@ -90,8 +88,9 @@ export default function Login() {
               onChange={handleInputChange}
               placeholder="Enter your password here"
               width="30vw"
+              required
             />
-            <Button type="submit" colorScheme="blue" onClick={handleSubmit}>
+            <Button type="submit" colorScheme="blue">
               Sign-in
             </Button>
           </Flex>
