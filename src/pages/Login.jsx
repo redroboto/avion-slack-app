@@ -7,11 +7,12 @@ import {
 } from "@chakra-ui/react";
 import { Flex } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ".././css/Login.css";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -57,12 +58,16 @@ export default function Login() {
         expiry: expiry,
         uid: uid,
       };
+
       // store headers variable in local storage
       localStorage.setItem("headers", JSON.stringify(headers));
 
       const response = await data.json();
+
       if (response.errors) {
         throw response.errors.full_messages[0];
+      } else if (response.data.id) {
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log("Error Occurred");
@@ -75,7 +80,7 @@ export default function Login() {
       <div className="login-form-container">
         <p>The logo should probably go here</p>
         <h1>Sign in to your workspace</h1>
-        <FormControl onSubmit={handleSubmit}>
+        <FormControl>
           <Flex direction="column" align="center" justify="center" gap="1rem">
             <Input
               name="email"
@@ -95,7 +100,7 @@ export default function Login() {
               width="30vw"
               required
             />
-            <Button type="submit" colorScheme="blue">
+            <Button type="submit" colorScheme="blue" onClick={handleSubmit}>
               Sign-in
             </Button>
           </Flex>
