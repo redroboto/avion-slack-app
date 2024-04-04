@@ -12,6 +12,11 @@ import { useState } from "react";
 import ".././css/Login.css";
 
 export default function Login() {
+  const [accessToken, setAccessToken] = useState("");
+  const [client, setClient] = useState("");
+  const [expiry, setExpiry] = useState("");
+  const [uid, setUid] = useState("");
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -44,6 +49,13 @@ export default function Login() {
           "Content-Type": "application/json",
         },
       });
+
+      console.log(data.headers);
+
+      setAccessToken(data.headers.get("access-token"));
+      setClient(data.headers.get("client"));
+      setExpiry(data.headers.get("expiry"));
+      setUid(data.headers.get("uid"));
 
       const response = await data.json();
       console.log(response);
