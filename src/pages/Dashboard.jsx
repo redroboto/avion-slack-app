@@ -8,18 +8,17 @@ export default function Dashboard() {
     <>
       <div className="dashboard-container">
         <div className="navbar">
-          <Link to="dashboard">
-            <FaSlack />
-          </Link>
+          <FaSlack className="nav-icon" />
+
           <Link to="channels">
-            <FaSlackHash />
+            <FaSlackHash className="nav-icon" />
           </Link>
           <Link to="messages">
-            <HiOutlineChatBubbleLeftRight />
+            <HiOutlineChatBubbleLeftRight className="nav-icon" />
           </Link>
         </div>
 
-        <div>
+        <div className="dashboard-directory">
           <Outlet />
         </div>
       </div>
