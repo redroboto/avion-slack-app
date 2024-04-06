@@ -80,31 +80,37 @@ export default function Login() {
       <div className="login-form-container">
         <p>The logo should probably go here</p>
         <h1>Sign in to your workspace</h1>
-        <FormControl>
+        <form onSubmit={handleSubmit}>
           <Flex direction="column" align="center" justify="center" gap="1rem">
-            <Input
-              name="email"
-              type="email"
-              value={formData["email"]}
-              onChange={handleInputChange}
-              placeholder="Enter your email address here"
-              width="30vw"
-              required
-            />
-            <Input
-              name="password"
-              type="password"
-              value={formData["password"]}
-              onChange={handleInputChange}
-              placeholder="Enter your password here"
-              width="30vw"
-              required
-            />
-            <Button type="submit" colorScheme="blue" onClick={handleSubmit}>
+            <FormControl isRequired>
+              <Input
+                name="email"
+                type="email"
+                value={formData["email"]}
+                onChange={handleInputChange}
+                placeholder="Enter your email address here"
+                width="30vw"
+                required
+              />
+            </FormControl>
+
+            <FormControl isRequired>
+              <Input
+                name="password"
+                type="password"
+                value={formData["password"]}
+                onChange={handleInputChange}
+                placeholder="Enter your password here"
+                width="30vw"
+                required
+              />
+            </FormControl>
+
+            <Button type="submit" colorScheme="blue">
               Sign-in
             </Button>
           </Flex>
-        </FormControl>
+        </form>
       </div>
       <div className="sign-up-link-container">
         <p>New to Slack?</p>

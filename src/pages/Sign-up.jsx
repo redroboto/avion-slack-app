@@ -8,8 +8,10 @@ import {
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Flex } from "@chakra-ui/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -34,6 +36,8 @@ export default function SignUp() {
       console.log(response);
       if (response.errors) {
         throw response.errors.full_messages[0];
+      } else if (response.status === "success") {
+        navigate("/");
       }
     } catch (error) {
       console.log("Error Occurred");
@@ -64,37 +68,46 @@ export default function SignUp() {
     <>
       <div>
         <h1>Sign up by completing the form below</h1>
-        <FormControl>
+        <form onSubmit={handleSubmit}>
           <Flex direction="column" align="center" justify="center" gap="1rem">
-            <Input
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              placeholder="Enter your email address here"
-              width="30vw"
-            />
-            <Input
-              name="password"
-              type="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              placeholder="Enter your password here"
-              width="30vw"
-            />
-            <Input
-              name="password_confirmation"
-              type="password"
-              value={formData["password_confirmation"]}
-              onChange={handleInputChange}
-              placeholder="Confirm your password"
-              width="30vw"
-            />
-            <Button type="submit" colorScheme="blue" onClick={handleSubmit}>
+            <FormControl isRequired>
+              <Input
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                placeholder="Enter your email address here"
+                width="30vw"
+              />
+            </FormControl>
+
+            <FormControl isRequired>
+              <Input
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                placeholder="Enter your password here"
+                width="30vw"
+              />
+            </FormControl>
+
+            <FormControl isRequired>
+              <Input
+                name="password_confirmation"
+                type="password"
+                value={formData["password_confirmation"]}
+                onChange={handleInputChange}
+                placeholder="Confirm your password"
+                width="30vw"
+              />
+            </FormControl>
+
+            <Button type="submit" colorScheme="blue">
               Sign-up
             </Button>
           </Flex>
-        </FormControl>
+        </form>
       </div>
     </>
   );
