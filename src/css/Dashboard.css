@@ -1,0 +1,11 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  height: 100vw;
+  border: solid black 1px;
+}

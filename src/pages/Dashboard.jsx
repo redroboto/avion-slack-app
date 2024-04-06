@@ -1,16 +1,27 @@
 import { Link, Outlet } from "react-router-dom";
+import ".././css/Dashboard.css";
+import { FaSlack, FaSlackHash } from "react-icons/fa";
+import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 
 export default function Dashboard() {
   return (
     <>
-      <div>
-        <h1>This is from the dashboard page</h1>
-        <Link to="channels"> Channels </Link>
-        <Link to="messages"> Messages </Link>
-      </div>
+      <div className="dashboard-container">
+        <div className="navbar">
+          <Link to="dashboard">
+            <FaSlack />
+          </Link>
+          <Link to="channels">
+            <FaSlackHash />
+          </Link>
+          <Link to="messages">
+            <HiOutlineChatBubbleLeftRight />
+          </Link>
+        </div>
 
-      <div>
-        <Outlet />
+        <div>
+          <Outlet />
+        </div>
       </div>
     </>
   );
