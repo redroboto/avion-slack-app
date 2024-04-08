@@ -5,7 +5,7 @@ body {
 .dashboard-container {
   display: flex;
   flex-direction: row;
-  height: 100vw;
+  height: 100vh;
 }
 
 .dashboard-directory {
@@ -17,7 +17,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 100vw;
+  height: 100vh;
   border: solid black 1px;
   width: 10vw;
   padding: 1rem;
