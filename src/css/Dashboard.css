@@ -8,6 +8,10 @@ body {
   height: 100vw;
 }
 
+.dashboard-directory {
+  flex-grow: 1;
+}
+
 .navbar {
   display: flex;
   flex-direction: column;

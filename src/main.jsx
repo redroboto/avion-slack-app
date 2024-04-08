@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import Channels from "./pages/DashboardChildren/Channels.jsx";
 import Messages from "./pages/DashboardChildren/Messages.jsx";
 import CreateMessage from "./pages/DashboardChildren/CreateMessage.jsx";
+import Conversation from "./pages/DashboardChildren/Conversation.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
           {
             path: "create-message",
             element: <CreateMessage />,
+          },
+          {
+            path: ":user_id",
+            element: <Conversation />,
           },
         ],
       },

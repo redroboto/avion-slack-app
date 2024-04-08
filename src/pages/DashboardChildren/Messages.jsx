@@ -15,11 +15,19 @@ export default function Messages() {
             </Link>
           </div>
 
-          <Input type="text"></Input>
+          <Input
+            type="text"
+            placeholder="add searchbar functionality here"
+          ></Input>
           <h1>Display messages here</h1>
+          <div className="conversation-list">
+            <Link to="1">Vince</Link>
+            <Link to="2">Angelo</Link>
+            <Link to="3">Lindsay</Link>
+          </div>
         </div>
 
-        <div>
+        <div className="conversation-display">
           <Outlet />
         </div>
       </div>
