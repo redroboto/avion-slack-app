@@ -1,11 +1,11 @@
 import {
   Input,
-  Select,
   Textarea,
   FormControl,
   FormLabel,
   Button,
 } from "@chakra-ui/react";
+import Select from "react-select";
 import { useState, useEffect } from "react";
 import { LuSendHorizonal } from "react-icons/lu";
 import { BASE_URL } from "../../utilities/ConstList";
@@ -29,6 +29,12 @@ async function getAllUsers(headers) {
 export default function CreateMessage() {
   const headers = JSON.parse(localStorage.getItem("headers") || "{}");
   const [userList, setUserList] = useState([]);
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const options = userList.map((user) => ({
+    value: user.email,
+    label: user.email,
+  }));
 
   async function getCurrentUserList() {
     const data = await getAllUsers(headers);
@@ -40,17 +46,19 @@ export default function CreateMessage() {
     if (headers) {
       getCurrentUserList();
     }
-  }, [headers]);
+  }, []);
+
+  //   removed headers from dependency first to end infinite loop
 
   return (
     <>
-      <form action="">
+      <form>
         <FormLabel>Send to:</FormLabel>
-        <Select placeholder="Select a User">
-          {userList.map((user) => (
-            <option value={user.email}>{user.email}</option>
-          ))}
-        </Select>
+        <Select
+          defaultValue={selectedOption}
+          onChange={setSelectedOption}
+          options={options}
+        />
         <p>hello create a new message here</p>
         <Textarea type="text"></Textarea>
         <Button>
