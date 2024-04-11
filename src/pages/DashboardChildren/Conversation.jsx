@@ -35,7 +35,7 @@ export default function Conversation() {
 
   useEffect(() => {
     if (headers && params.user_id) {
-      getRecentConversation();
+      //   getRecentConversation();
     }
   }, [headers, params.user_id]);
 

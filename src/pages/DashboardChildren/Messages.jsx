@@ -37,7 +37,7 @@ export default function Messages() {
 
   useEffect(() => {
     if (headers) {
-      getRecentDms();
+      //   getRecentDms();
     }
   }, [headers]);
 
