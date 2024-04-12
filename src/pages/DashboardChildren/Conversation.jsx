@@ -5,10 +5,10 @@ import { useState, useEffect } from "react";
 import { Textarea, Button, FormLabel } from "@chakra-ui/react";
 import { LuSendHorizonal } from "react-icons/lu";
 
-async function fetchRecentConversation(headers, user_id) {
+async function fetchRecentConversation(headers, id, receiver_class) {
   try {
     const data = await fetch(
-      `${BASE_URL}/messages?receiver_id=${user_id}&receiver_class=User`,
+      `${BASE_URL}/messages?receiver_id=${id}&receiver_class=${receiver_class}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -24,23 +24,27 @@ async function fetchRecentConversation(headers, user_id) {
   }
 }
 
-export default function Conversation() {
+export default function Conversation({ receiver_class }) {
   const params = useParams();
   const headers = JSON.parse(localStorage.getItem("headers") || "{}");
   const [conversation, setConversation] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 
   async function getRecentConversation() {
-    const data = await fetchRecentConversation(headers, params.user_id);
+    const data = await fetchRecentConversation(
+      headers,
+      params.id,
+      receiver_class
+    );
     console.log(data);
     setConversation(data.data);
   }
 
   useEffect(() => {
-    if (headers && params.user_id) {
+    if (headers && params.id) {
       getRecentConversation();
     }
-  }, [params.user_id]);
+  }, [params.id]);
 
   async function sendMessage(headers, body) {
     try {
@@ -62,8 +66,8 @@ export default function Conversation() {
   async function handleSendMessage(e) {
     e.preventDefault();
     const data = await sendMessage(headers, {
-      receiver_id: params.user_id,
-      receiver_class: "User",
+      receiver_id: params.id,
+      receiver_class: receiver_class,
       body: newMessage,
     });
     setNewMessage("");

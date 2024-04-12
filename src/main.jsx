@@ -29,6 +29,12 @@ const router = createBrowserRouter([
       {
         path: "channels",
         element: <Channels />,
+        children: [
+          {
+            path: ":id",
+            element: <Conversation receiver_class="Channel" />,
+          },
+        ],
       },
       {
         path: "messages",
@@ -39,8 +45,8 @@ const router = createBrowserRouter([
             element: <CreateMessage />,
           },
           {
-            path: ":user_id",
-            element: <Conversation />,
+            path: ":id",
+            element: <Conversation receiver_class="User" />,
           },
         ],
       },

@@ -8,6 +8,7 @@
 .messages-directory {
   display: flex;
   flex-direction: column;
+  width: 10vw;
 }
 
 .message-directory-header {
