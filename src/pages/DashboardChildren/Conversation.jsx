@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 async function fetchRecentConversation(headers, user_id) {
   try {
     const data = await fetch(
-      `${BASE_URL}/messages?receiver_id=${params.id}&receiver_class=User`,
+      `${BASE_URL}/messages?receiver_id=${user_id}&receiver_class=User`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -30,18 +30,23 @@ export default function Conversation() {
   async function getRecentConversation() {
     const data = await fetchRecentConversation(headers, params.user_id);
     console.log(data);
-    // setConversation(data.data);
+    setConversation(data.data);
   }
 
   useEffect(() => {
     if (headers && params.user_id) {
-      //   getRecentConversation();
+      getRecentConversation();
     }
-  }, [headers, params.user_id]);
+  }, [params.user_id]);
 
   return (
     <>
       <p>This is {params.user_id}</p>
+      <div>
+        {conversation.map((message) => {
+          return <p key={message.id}>{message.body}</p>;
+        })}
+      </div>
     </>
   );
 }
