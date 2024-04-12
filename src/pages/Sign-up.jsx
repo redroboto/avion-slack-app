@@ -5,10 +5,12 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
+import { FaSlack } from "react-icons/fa";
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ".././css/Sign-up.css";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -17,6 +19,7 @@ export default function SignUp() {
     password: "",
     password_confirmation: "",
   });
+  const toast = useToast();
 
   async function userReg(email, password, password_confirmation) {
     try {
@@ -38,9 +41,23 @@ export default function SignUp() {
         throw response.errors.full_messages[0];
       } else if (response.status === "success") {
         navigate("/");
+        toast({
+          title: "Sign-up successful.",
+          description: "You may now sign-in",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
       }
     } catch (error) {
       console.log("Error Occurred");
+      toast({
+        title: "Sign-up failed.",
+        description: error,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
       console.log(error);
     }
   }
@@ -66,8 +83,9 @@ export default function SignUp() {
 
   return (
     <>
-      <div>
-        <h1>Sign up by completing the form below</h1>
+      <div className="sign-up-container">
+        <FaSlack className="slack-icon" />
+        <h1>Sign up by completing the form below:</h1>
         <form onSubmit={handleSubmit}>
           <Flex direction="column" align="center" justify="center" gap="1rem">
             <FormControl isRequired>

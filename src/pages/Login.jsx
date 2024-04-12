@@ -1,4 +1,5 @@
 import { Input } from "@chakra-ui/react";
+import { FaSlack } from "react-icons/fa";
 import {
   FormControl,
   FormLabel,
@@ -77,44 +78,46 @@ export default function Login() {
 
   return (
     <>
-      <div className="login-form-container">
-        <p>The logo should probably go here</p>
-        <h1>Sign in to your workspace</h1>
-        <form onSubmit={handleSubmit}>
-          <Flex direction="column" align="center" justify="center" gap="1rem">
-            <FormControl isRequired>
-              <Input
-                name="email"
-                type="email"
-                value={formData["email"]}
-                onChange={handleInputChange}
-                placeholder="Enter your email address here"
-                width="30vw"
-                required
-              />
-            </FormControl>
+      <div className="login-page-container">
+        <div className="login-form-container">
+          <FaSlack className="slack-icon" />
+          <h1>Sign in to your workspace</h1>
+          <form onSubmit={handleSubmit}>
+            <Flex direction="column" align="center" justify="center" gap="1rem">
+              <FormControl isRequired>
+                <Input
+                  name="email"
+                  type="email"
+                  value={formData["email"]}
+                  onChange={handleInputChange}
+                  placeholder="Enter your email address here"
+                  width="30vw"
+                  required
+                />
+              </FormControl>
 
-            <FormControl isRequired>
-              <Input
-                name="password"
-                type="password"
-                value={formData["password"]}
-                onChange={handleInputChange}
-                placeholder="Enter your password here"
-                width="30vw"
-                required
-              />
-            </FormControl>
+              <FormControl isRequired>
+                <Input
+                  name="password"
+                  type="password"
+                  value={formData["password"]}
+                  onChange={handleInputChange}
+                  placeholder="Enter your password here"
+                  width="30vw"
+                  required
+                />
+              </FormControl>
 
-            <Button type="submit" colorScheme="blue">
-              Sign-in
-            </Button>
-          </Flex>
-        </form>
-      </div>
-      <div className="sign-up-link-container">
-        <p>New to Slack?</p>
-        <Link to="/signup">Sign-up for an account here.</Link>
+              <Button type="submit" colorScheme="blue">
+                Sign-in
+              </Button>
+            </Flex>
+          </form>
+        </div>
+        <div className="sign-up-link-container">
+          <p>New to Slack?</p>
+          <Link to="/signup">Sign-up for an account here.</Link>
+        </div>
       </div>
     </>
   );

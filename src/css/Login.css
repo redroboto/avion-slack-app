@@ -1,7 +1,27 @@
-.login-form-container {
+.login-page-container {
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1rem;
+}
+
+.login-form-container,
+.sign-up-link-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sign-up-link-container > a:hover {
+  text-decoration: underline;
+}
+
+.slack-icon {
+  font-size: 7.5rem;
 }
 
 /* fix this later need to be able to target the Chakra UI components properly */
