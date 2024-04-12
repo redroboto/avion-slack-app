@@ -29,7 +29,7 @@ async function getAllUsers(headers) {
 export default function CreateMessage() {
   const headers = JSON.parse(localStorage.getItem("headers") || "{}");
   const [userList, setUserList] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [messageRecipient, setMessageRecipient] = useState(null);
 
   const options = userList.map((user) => ({
     value: user.email,
@@ -56,7 +56,7 @@ export default function CreateMessage() {
         <FormLabel>Send to:</FormLabel>
         <Select
           defaultValue={selectedOption}
-          onChange={setSelectedOption}
+          onChange={setMessageRecipient}
           options={options}
         />
         <p>hello create a new message here</p>
