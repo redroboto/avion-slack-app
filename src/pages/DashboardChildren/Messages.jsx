@@ -1,7 +1,7 @@
 import { Input } from "@chakra-ui/react";
 import { Link, Outlet } from "react-router-dom";
 import { RiChatNewLine } from "react-icons/ri";
-import "../.././css/Messages.css";
+import "../../css/Messages.css";
 import { BASE_URL } from "../../utilities/ConstList";
 import { useState, useEffect } from "react";
 
@@ -44,7 +44,7 @@ export default function Messages() {
   return (
     <>
       <div className="messages-container">
-        <div className="messsages-directory">
+        <div className="messsages-directory" id="messages-directory">
           <div className="message-directory-header">
             <h1>Direct Messages</h1>
             <Link to="create-message">
@@ -52,11 +52,10 @@ export default function Messages() {
             </Link>
           </div>
 
-          <Input
+          {/* <Input
             type="text"
             placeholder="add searchbar functionality here"
-          ></Input>
-          <h1>Display messages here</h1>
+          ></Input> */}
           <div className="conversation-list">
             {recentUsers.map((user) => (
               <Link key={user.id} to={`${user.id}`}>

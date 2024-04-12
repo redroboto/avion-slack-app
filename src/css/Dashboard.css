@@ -12,8 +12,19 @@ body {
   flex-grow: 1;
 }
 
-.dashboard-directory > h1 {
+.dashboard-status-bar-top {
+  display: flex;
+  justify-content: space-between;
   height: 5vh;
+  border: solid black 1px;
+  border-radius: 0.625rem;
+  padding: 0.25rem 1rem;
+}
+
+.log-out-button-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .navbar {

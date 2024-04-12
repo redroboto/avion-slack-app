@@ -2,8 +2,9 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../../utilities/ConstList";
 import { useState, useEffect } from "react";
-import { Textarea, Button, FormLabel } from "@chakra-ui/react";
+import { Input, Textarea, Button, FormLabel } from "@chakra-ui/react";
 import { LuSendHorizonal } from "react-icons/lu";
+import "../.././css/Conversation.css";
 
 async function fetchRecentConversation(headers, id, receiver_class) {
   try {
@@ -36,7 +37,7 @@ export default function Conversation({ receiver_class }) {
       params.id,
       receiver_class
     );
-    console.log(data);
+    console.log(data.data);
     setConversation(data.data);
   }
 
@@ -76,18 +77,24 @@ export default function Conversation({ receiver_class }) {
 
   return (
     <>
-      <div>
+      <div></div>
+      <div className="conversation-display-container">
         {conversation.map((message) => {
-          return <p key={message.id}>{message.body}</p>;
+          return (
+            <p key={message.id}>
+              {message.sender.uid}: <br></br>
+              {message.body}
+            </p>
+          );
         })}
       </div>
-      <div>
+      <div className="conversation-new-message-container">
         <form onSubmit={handleSendMessage}>
-          <Textarea
+          <Input
             type="text"
             onChange={handleMessageChange}
             value={newMessage}
-          ></Textarea>
+          />
           <Button type="submit">
             <LuSendHorizonal />
           </Button>

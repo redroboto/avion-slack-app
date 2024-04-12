@@ -2,9 +2,17 @@ import { Link, Outlet } from "react-router-dom";
 import ".././css/Dashboard.css";
 import { FaSlack, FaSlackHash } from "react-icons/fa";
 import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
-import { headers } from "../utilities/ConstList";
+import { MdLogout } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const headers = JSON.parse(localStorage.getItem("headers") || "{}");
+
+  function handleLogout() {
+    navigate("/");
+  }
+
   return (
     <>
       <div className="dashboard-container">
@@ -27,7 +35,13 @@ export default function Dashboard() {
         </div>
 
         <div className="dashboard-directory">
-          <h1>You are currently logged in as: {headers.uid}</h1>
+          <div className="dashboard-status-bar-top">
+            <h1>You are currently logged in as: {headers.uid}</h1>
+            <div className="log-out-button-container" onClick={handleLogout}>
+              <MdLogout />
+              <span>Log out</span>
+            </div>
+          </div>
 
           <Outlet />
         </div>

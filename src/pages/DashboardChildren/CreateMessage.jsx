@@ -104,7 +104,7 @@ export default function CreateMessage() {
           onChange={handleSelectRecipient}
           loadOptions={loadOptions}
         />
-        <p>hello create a new message here</p>
+        <p>Create a new message here:</p>
         <Textarea type="text" onChange={handleMessageChange}></Textarea>
         <Button type="submit">
           <LuSendHorizonal />

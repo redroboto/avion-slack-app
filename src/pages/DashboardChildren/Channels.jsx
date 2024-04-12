@@ -154,7 +154,7 @@ export default function Channels() {
   return (
     <>
       <div className="messages-container">
-        <div className="messsages-directory">
+        <div className="messsages-directory" id="messages-directory">
           <div className="message-directory-header">
             <h1>Channels</h1>
           </div>
@@ -195,7 +195,6 @@ export default function Channels() {
             type="text"
             placeholder="add searchbar functionality here"
           ></Input> */}
-          <h1>Display channels here</h1>
           <div className="conversation-list">
             {channels.map((channel) => (
               <Link key={channel.id} to={`${channel.id}`}>
