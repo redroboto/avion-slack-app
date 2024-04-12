@@ -9,6 +9,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  useToast,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { Link, Outlet } from "react-router-dom";
@@ -67,6 +68,7 @@ export default function Channels() {
       label: user.email,
     }));
   }, [userList]);
+  const toast = useToast();
 
   async function getAllChannels() {
     const data = await fetchAllChannels(headers);
@@ -114,7 +116,26 @@ export default function Channels() {
       });
       const res = await data.json();
       console.log(res);
-    } catch (error) {}
+      if (res.errors) {
+        toast({
+          title: "Channel creation failed",
+          description: res.errors[0],
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "New channel added",
+          description: "You may now view and send messages in your new channel",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function handleSaveChannel() {
@@ -170,10 +191,10 @@ export default function Channels() {
             </ModalContent>
           </Modal>
 
-          <Input
+          {/* <Input
             type="text"
             placeholder="add searchbar functionality here"
-          ></Input>
+          ></Input> */}
           <h1>Display channels here</h1>
           <div className="conversation-list">
             {channels.map((channel) => (
