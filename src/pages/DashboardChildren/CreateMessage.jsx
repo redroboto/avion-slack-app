@@ -1,9 +1,12 @@
 import {
   Input,
+  InputGroup,
+  InputRightAddon,
   Textarea,
   FormControl,
   FormLabel,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import AsyncSelect from "react-select/async";
 import { useState, useEffect } from "react";
@@ -32,6 +35,7 @@ export default function CreateMessage() {
   const [userList, setUserList] = useState([]);
   const [messageRecipient, setMessageRecipient] = useState(null);
   const [newMessage, setNewMessage] = useState("");
+  const toast = useToast();
 
   const options = useMemo(() => {
     return userList.map((user) => ({
@@ -93,6 +97,32 @@ export default function CreateMessage() {
       receiver_class: "User",
       body: newMessage,
     });
+    if (!messageRecipient) {
+      toast({
+        title: "Please select a recipient",
+        description: "umayos ka",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else if (newMessage === "") {
+      toast({
+        title: "Please enter a message",
+        description: "umayos ka",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      setNewMessage("");
+      toast({
+        title: "Message Sent",
+        description: "ok na",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   }
 
   return (
@@ -105,10 +135,19 @@ export default function CreateMessage() {
           loadOptions={loadOptions}
         />
         <p>Create a new message here:</p>
-        <Textarea type="text" onChange={handleMessageChange}></Textarea>
-        <Button type="submit">
-          <LuSendHorizonal />
-        </Button>
+        {/* <Textarea type="text" onChange={handleMessageChange}></Textarea> */}
+        <InputGroup>
+          <Input
+            type="text"
+            value={newMessage}
+            onChange={handleMessageChange}
+          ></Input>
+          <InputRightAddon>
+            <button type="submit">
+              <LuSendHorizonal />
+            </button>
+          </InputRightAddon>
+        </InputGroup>
       </form>
     </>
   );

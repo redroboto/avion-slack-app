@@ -2,7 +2,15 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../../utilities/ConstList";
 import { useState, useEffect } from "react";
-import { Input, Textarea, Button, FormLabel } from "@chakra-ui/react";
+import {
+  Input,
+  InputGroup,
+  InputLeftAddon,
+  InputRightAddon,
+  Textarea,
+  Button,
+  FormLabel,
+} from "@chakra-ui/react";
 import { LuSendHorizonal } from "react-icons/lu";
 import "../.././css/Conversation.css";
 
@@ -19,6 +27,7 @@ async function fetchRecentConversation(headers, id, receiver_class) {
     );
 
     const res = await data.json();
+    console.log(res);
     return res;
   } catch (error) {
     console.error(error);
@@ -77,7 +86,9 @@ export default function Conversation({ receiver_class }) {
 
   return (
     <>
-      <div></div>
+      <div>
+        <h1>Current conversation with: </h1>
+      </div>
       <div className="conversation-display-container">
         {conversation.map((message) => {
           return (
@@ -91,14 +102,18 @@ export default function Conversation({ receiver_class }) {
       </div>
       <div className="conversation-new-message-container">
         <form onSubmit={handleSendMessage}>
-          <Input
-            type="text"
-            onChange={handleMessageChange}
-            value={newMessage}
-          />
-          <Button type="submit">
-            <LuSendHorizonal />
-          </Button>
+          <InputGroup>
+            <Input
+              type="text"
+              onChange={handleMessageChange}
+              value={newMessage}
+            />
+            <InputRightAddon>
+              <button type="submit">
+                <LuSendHorizonal />
+              </button>
+            </InputRightAddon>
+          </InputGroup>
         </form>
       </div>
     </>

@@ -17,7 +17,7 @@ body {
   justify-content: space-between;
   height: 5vh;
   border: solid black 1px;
-  border-radius: 0.625rem;
+  /* border-radius: 0.625rem; */
   padding: 0.25rem 1rem;
 }
 

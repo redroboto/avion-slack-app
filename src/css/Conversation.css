@@ -4,6 +4,15 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  border: solid black 1px;
+  border-radius: 0.625rem;
+  padding: 0.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 #message-sender-uid {
