@@ -82,7 +82,8 @@ export default function Conversation({ receiver_class }) {
         {conversation.map((message) => {
           return (
             <p key={message.id}>
-              {message.sender.uid}: <br></br>
+              <span id="message-sender-uid">{message.sender.uid}:</span>{" "}
+              <br></br>
               {message.body}
             </p>
           );
