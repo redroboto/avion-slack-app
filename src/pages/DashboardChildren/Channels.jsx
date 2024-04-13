@@ -62,6 +62,7 @@ export default function Channels() {
   const [userList, setUserList] = useState([]);
   const [channelName, setChannelName] = useState("");
   const [channelMembers, setChannelMembers] = useState([]);
+  const [isActive, setIsActive] = useState(null);
   const options = useMemo(() => {
     return userList.map((user) => ({
       value: user.id,
@@ -151,6 +152,10 @@ export default function Channels() {
     setChannelName(e.target.value);
   }
 
+  function handleActiveClick(index) {
+    setIsActive(index);
+  }
+
   return (
     <>
       <div className="messages-container">
@@ -196,10 +201,17 @@ export default function Channels() {
             placeholder="add searchbar functionality here"
           ></Input> */}
           <div className="conversation-list">
-            {channels.map((channel) => (
-              <Link key={channel.id} to={`${channel.id}`}>
-                {channel.name}
-              </Link>
+            {channels.map((channel, index) => (
+              <div
+                className={`conversation-item-container ${
+                  isActive === index ? "activeItem" : ""
+                } `}
+                onClick={() => handleActiveClick(index)}
+              >
+                <Link key={channel.id} to={`${channel.id}`}>
+                  {channel.name}
+                </Link>
+              </div>
             ))}
           </div>
         </div>

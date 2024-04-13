@@ -35,7 +35,7 @@ body {
   height: 100%;
   border: solid black 1px;
   width: 10vw;
-  padding: 1rem;
+  padding: 1rem 0;
   gap: 2rem;
 }
 
@@ -44,8 +44,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  padding: 0.25rem;
 }
 
 .nav-icon {
   font-size: 2rem;
+}
+
+.nav-item-active {
+  background-color: black;
+  color: white;
 }

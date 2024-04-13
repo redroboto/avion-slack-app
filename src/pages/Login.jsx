@@ -5,6 +5,7 @@ import {
   FormLabel,
   FormErrorMessage,
   FormHelperText,
+  useToast,
 } from "@chakra-ui/react";
 import { Flex } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
@@ -14,6 +15,7 @@ import ".././css/Login.css";
 
 export default function Login() {
   const navigate = useNavigate();
+  const toast = useToast();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -67,14 +69,25 @@ export default function Login() {
       localStorage.setItem("isLoggedIn", JSON.stringify(true));
 
       const response = await data.json();
-
       if (response.errors) {
-        throw response.errors.full_messages[0];
+        throw response.errors[0];
       } else if (response.data.id) {
         navigate("/dashboard");
+        //store isLoggedIn as true for protected routes implementation
+        localStorage.setItem("isLoggedIn", JSON.stringify(true));
+        console.log(response.data);
+        // store current userinfo in local storage
+        localStorage.setItem("userInfo", JSON.stringify(response.data));
       }
     } catch (error) {
       console.log("Error Occurred");
+      toast({
+        title: "Sign-in failed.",
+        description: error,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
       console.log(error);
     }
   }

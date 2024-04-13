@@ -13,7 +13,7 @@
 
 .message-directory-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .message-directory-header > h1 {
@@ -29,7 +29,7 @@
 .conversation-list > a:hover {
   background-color: rgba(177, 172, 171, 0.6);
   /* border-radius: 0.625rem; */
-  padding: 0.5rem;
+  padding: 0.5rem 0;
 }
 
 .conversation-display {
@@ -42,8 +42,17 @@
   /* border-radius: 0.625rem; */
 }
 
-#messages-directory {
+.conversation-item-container {
   padding: 0.5rem;
+}
+
+.activeItem {
+  background-color: black;
+  color: white;
+}
+
+#messages-directory {
+  padding: 0.5rem 0;
   display: flex;
   flex-direction: column;
   width: 20vw;

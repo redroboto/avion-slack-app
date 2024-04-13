@@ -8,6 +8,10 @@
   gap: 1rem;
 }
 
+.sign-up-container > a:hover {
+  text-decoration: underline;
+}
+
 .slack-icon {
   font-size: 7.5rem;
 }

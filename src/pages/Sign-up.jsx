@@ -9,7 +9,7 @@ import { FaSlack } from "react-icons/fa";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Flex, useToast } from "@chakra-ui/react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ".././css/Sign-up.css";
 
 export default function SignUp() {
@@ -126,6 +126,7 @@ export default function SignUp() {
             </Button>
           </Flex>
         </form>
+        <Link to="/">Return to Login page</Link>
       </div>
     </>
   );
