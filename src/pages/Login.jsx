@@ -63,6 +63,9 @@ export default function Login() {
       // store headers variable in local storage
       localStorage.setItem("headers", JSON.stringify(headers));
 
+      //store isLoggedIn as true for protected routes implementation
+      localStorage.setItem("isLoggedIn", JSON.stringify(true));
+
       const response = await data.json();
 
       if (response.errors) {

@@ -11,6 +11,7 @@ export default function Dashboard() {
 
   function handleLogout() {
     navigate("/");
+    localStorage.setItem("isLoggedIn", JSON.stringify(false));
   }
 
   return (

@@ -12,6 +12,7 @@ import Channels from "./pages/DashboardChildren/Channels.jsx";
 import Messages from "./pages/DashboardChildren/Messages.jsx";
 import CreateMessage from "./pages/DashboardChildren/CreateMessage.jsx";
 import Conversation from "./pages/DashboardChildren/Conversation.jsx";
+import { ProtectedRoute } from "./components/ProtectedRoutes.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "channels",
