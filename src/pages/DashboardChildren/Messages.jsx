@@ -57,7 +57,7 @@ export default function Messages() {
             placeholder="add searchbar functionality here"
           ></Input> */}
           <div className="conversation-list">
-            {recentUsers.map((user) => (
+            {recentUsers.map((user, index) => (
               <Link key={user.id} to={`${user.id}`}>
                 {user.email}
               </Link>
