@@ -86,8 +86,11 @@ export default function Conversation({ receiver_class }) {
 
   return (
     <>
-      <div>
+      <div conversation-header-container>
         <h1>Current conversation with: </h1>
+        <div>
+          {typeof receiver_id !== "number" ? <button>Add Users</button> : ""}
+        </div>
       </div>
       <div className="conversation-display-container">
         {conversation.map((message) => {

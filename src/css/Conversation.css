@@ -1,3 +1,14 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.conversation-header-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .conversation-display-container {
   flex-grow: 1;
   overflow-y: scroll;
@@ -7,12 +18,6 @@
   border: solid black 1px;
   border-radius: 0.625rem;
   padding: 0.5rem;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
 #message-sender-uid {
