@@ -9,6 +9,11 @@ form {
   justify-content: space-between;
 }
 
+.add-user-btn-container {
+  display: flex;
+  align-items: center;
+}
+
 .conversation-display-container {
   flex-grow: 1;
   overflow-y: scroll;

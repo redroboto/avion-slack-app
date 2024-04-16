@@ -24,6 +24,7 @@ import {
 import AsyncSelect from "react-select/async";
 import { useMemo } from "react";
 import { LuSendHorizonal } from "react-icons/lu";
+import { MdAddCircleOutline } from "react-icons/md";
 import "../.././css/Conversation.css";
 
 async function fetchRecentConversation(headers, id, receiver_class) {
@@ -45,6 +46,8 @@ async function fetchRecentConversation(headers, id, receiver_class) {
     console.error(error);
   }
 }
+
+// added getAllUsers from Channels.jsx for the select user option when adding new users to current channel
 
 async function getAllUsers(headers) {
   try {
@@ -77,7 +80,6 @@ export default function Conversation({ receiver_class }) {
       label: user.email,
     }));
   }, [userList]);
-  const [channelMembers, setChannelMembers] = useState([]);
   const currentUser = JSON.parse(localStorage.getItem("userInfo") || "{}");
 
   async function getRecentConversation() {
@@ -96,6 +98,8 @@ export default function Conversation({ receiver_class }) {
       getRecentConversation();
     }
   }, [params.id]);
+
+  // added getCurrentUserList & useEffect below from Channels.jsx for the select user option when adding new users to current channel
 
   async function getCurrentUserList() {
     const data = await getAllUsers(headers);
@@ -138,9 +142,7 @@ export default function Conversation({ receiver_class }) {
     getRecentConversation();
   }
 
-  // function handleInputChange(e) {
-
-  // }
+  //  loadOptions copied from Channels.jsx for selecting users to add to channel
 
   function loadOptions(searchValue) {
     return new Promise((resolve) => {
@@ -152,6 +154,8 @@ export default function Conversation({ receiver_class }) {
       }, 500);
     });
   }
+
+  // handleSelectUser, saveNewUser, and handleSaveNewUser all added for saving new users to the channel
 
   function handleSelectUser(e) {
     console.log(e[0].value);
@@ -206,9 +210,16 @@ export default function Conversation({ receiver_class }) {
     <>
       <div className="conversation-header-container">
         <h1>Current conversation with: </h1>
-        <div>
+        <div className="add-user-btn-container">
           {typeof receiver_id !== "number" ? (
-            <button onClick={onOpen}>Add Users</button>
+            <>
+              <button onClick={onOpen}>
+                <MdAddCircleOutline />
+              </button>
+              <button onClick={onOpen}>
+                <span> Add User</span>
+              </button>
+            </>
           ) : (
             ""
           )}
