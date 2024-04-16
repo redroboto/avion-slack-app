@@ -7,10 +7,22 @@ import {
   InputGroup,
   InputLeftAddon,
   InputRightAddon,
+  FormLabel,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useToast,
+  useDisclosure,
   Textarea,
   Button,
-  FormLabel,
 } from "@chakra-ui/react";
+
+import AsyncSelect from "react-select/async";
+import { useMemo } from "react";
 import { LuSendHorizonal } from "react-icons/lu";
 import "../.././css/Conversation.css";
 
@@ -34,11 +46,38 @@ async function fetchRecentConversation(headers, id, receiver_class) {
   }
 }
 
+async function getAllUsers(headers) {
+  try {
+    const data = await fetch(`${BASE_URL}/users`, {
+      headers: {
+        "Content-Type": "application/json",
+        ...headers,
+      },
+    });
+
+    const res = await data.json();
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export default function Conversation({ receiver_class }) {
   const params = useParams();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
   const headers = JSON.parse(localStorage.getItem("headers") || "{}");
   const [conversation, setConversation] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [newUser, setNewUser] = useState([]);
+  const [userList, setUserList] = useState([]);
+  const options = useMemo(() => {
+    return userList.map((user) => ({
+      value: user.id,
+      label: user.email,
+    }));
+  }, [userList]);
+  const [channelMembers, setChannelMembers] = useState([]);
   const currentUser = JSON.parse(localStorage.getItem("userInfo") || "{}");
 
   async function getRecentConversation() {
@@ -57,6 +96,19 @@ export default function Conversation({ receiver_class }) {
       getRecentConversation();
     }
   }, [params.id]);
+
+  async function getCurrentUserList() {
+    const data = await getAllUsers(headers);
+    console.log(data);
+    setUserList(data.data);
+  }
+
+  useEffect(() => {
+    if (headers) {
+      // getAllChannels();
+      getCurrentUserList();
+    }
+  }, []);
 
   async function sendMessage(headers, body) {
     try {
@@ -86,13 +138,109 @@ export default function Conversation({ receiver_class }) {
     getRecentConversation();
   }
 
+  // function handleInputChange(e) {
+
+  // }
+
+  function loadOptions(searchValue) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const filteredOptions = options?.filter((option) => {
+          return option.label.toLowerCase().includes(searchValue.toLowerCase());
+        });
+        resolve(filteredOptions);
+      }, 500);
+    });
+  }
+
+  function handleSelectUser(e) {
+    console.log(e[0].value);
+    setNewUser(e[0].value);
+  }
+
+  async function saveNewUser(headers, body) {
+    try {
+      const data = await fetch(`${BASE_URL}/channel/add_member`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...headers,
+        },
+        body: JSON.stringify(body),
+      });
+      const res = await data.json();
+      console.log(res);
+      if (res.errors) {
+        toast({
+          title: "Failed to add new user",
+          description: res.errors[0],
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "New user added",
+          description: "See message above",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleSaveNewUser() {
+    const data = await saveNewUser(headers, {
+      id: params.id,
+      member_id: newUser,
+    });
+
+    getRecentConversation();
+    onClose();
+  }
+
   return (
     <>
       <div className="conversation-header-container">
         <h1>Current conversation with: </h1>
         <div>
-          {typeof receiver_id !== "number" ? <button>Add Users</button> : ""}
+          {typeof receiver_id !== "number" ? (
+            <button onClick={onOpen}>Add Users</button>
+          ) : (
+            ""
+          )}
         </div>
+
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Add User to Channel</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <form>
+                <FormLabel>Add members:</FormLabel>
+                <AsyncSelect
+                  // defaultValue={messageRecipient}
+                  onChange={handleSelectUser}
+                  loadOptions={loadOptions}
+                  isMulti
+                />
+              </form>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Close
+              </Button>
+              <Button variant="ghost" onClick={handleSaveNewUser}>
+                Add User
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </div>
       <div className="conversation-display-container">
         {conversation.map((message) => {
