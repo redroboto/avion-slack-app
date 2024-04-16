@@ -20,6 +20,32 @@ form {
   padding: 0.5rem;
 }
 
+.conversation-line-sender {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.conversation-line-receiver {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.conversation-bubble-sender {
+  width: 50%;
+  border: solid rgb(127, 220, 244) 1px;
+  background-color: rgb(127, 220, 244);
+  border-radius: 0.625rem;
+  padding: 0.3rem;
+}
+
+.conversation-bubble-receiver {
+  width: 50%;
+  border: solid rgba(210, 217, 226) 1px;
+  background-color: rgba(210, 217, 226);
+  padding: 0.3rem;
+  border-radius: 0.625rem;
+}
+
 #message-sender-uid {
   font-weight: bold;
 }

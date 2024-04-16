@@ -39,6 +39,7 @@ export default function Conversation({ receiver_class }) {
   const headers = JSON.parse(localStorage.getItem("headers") || "{}");
   const [conversation, setConversation] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const currentUser = JSON.parse(localStorage.getItem("userInfo") || "{}");
 
   async function getRecentConversation() {
     const data = await fetchRecentConversation(
@@ -47,6 +48,7 @@ export default function Conversation({ receiver_class }) {
       receiver_class
     );
     console.log(data.data);
+    console.log(currentUser.id);
     setConversation(data.data);
   }
 
@@ -86,7 +88,7 @@ export default function Conversation({ receiver_class }) {
 
   return (
     <>
-      <div conversation-header-container>
+      <div className="conversation-header-container">
         <h1>Current conversation with: </h1>
         <div>
           {typeof receiver_id !== "number" ? <button>Add Users</button> : ""}
@@ -95,11 +97,30 @@ export default function Conversation({ receiver_class }) {
       <div className="conversation-display-container">
         {conversation.map((message) => {
           return (
-            <p key={message.id}>
-              <span id="message-sender-uid">{message.sender.uid}:</span>{" "}
-              <br></br>
-              {message.body}
-            </p>
+            <div
+              className={
+                message.sender.id === currentUser.id
+                  ? "conversation-line-sender"
+                  : "conversation-line-receiver"
+              }
+            >
+              <div
+                className={
+                  message.sender.id === currentUser.id
+                    ? "conversation-bubble-sender"
+                    : "conversation-bubble-receiver"
+                }
+              >
+                <p key={message.id}>
+                  <span id="message-sender-uid">{message.sender.uid}</span>
+                  <br></br>
+                  {message.body}
+                  <br></br>
+                  <span>sent on: </span>
+                  {message.created_at}
+                </p>
+              </div>
+            </div>
           );
         })}
       </div>
